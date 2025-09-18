@@ -1,0 +1,7 @@
+{
+  "name": "edit shit",
+  "version": "1.0.0",
+  "description": "Appends (edited) tag to edited Discord messages",
+  "author": "heycodingskills",
+  "main": "index.js"
+}

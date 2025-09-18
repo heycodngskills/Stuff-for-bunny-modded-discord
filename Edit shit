@@ -1,0 +1,35 @@
+class EditedTagPlugin {
+  start() {
+    console.log('[EditedTagPlugin] Starting plugin...')
+    this.markEditedMessages = () => {
+      const messages = document.querySelectorAll('div.message-2qnXI6')
+      messages.forEach((msg) => {
+        const header = msg.querySelector('header > div > div:nth-child(2)')
+        if (!header) return
+
+        const edited = msg.querySelector('.edited-tag')
+        if (msg.innerHTML.includes('edited') && !edited) {
+          const span = document.createElement('span')
+          span.className = 'edited-tag'
+          span.textContent = ' (edited)'
+          span.style.fontStyle = 'italic'
+          span.style.color = '#72767d'
+          header.appendChild(span)
+        }
+      })
+    }
+    this.observer = new MutationObserver(this.markEditedMessages)
+    this.observer.observe(document.body, { childList: true, subtree: true })
+    this.markEditedMessages()
+  }
+
+  stop() {
+    if (this.observer) {
+      this.observer.disconnect()
+      console.log('[EditedTagPlugin] Plugin stopped.')
+    }
+  }
+}
+
+const pluginInstance = new EditedTagPlugin()
+pluginInstance.start()
